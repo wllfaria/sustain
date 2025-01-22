@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxyf2lek5y8r4"]
+
+[ext_resource type="Texture2D" uid="uid://btp3vhfyx14qm" path="res://entities/Enemies/Melee/assets/sprite.png" id="1_kldny"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wsih5"]
+size = Vector2(32, 32)
+
+[node name="MeleeEnemy" type="MeleeEnemy"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kldny")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_wsih5")
