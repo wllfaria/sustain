@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://ce7pxlqkd55wh"]
+
+[ext_resource type="Texture2D" uid="uid://bh61w5sdt1hwp" path="res://levels/ui/health_bar/health_bar.png" id="1_uvj0l"]
+
+[node name="HealthBar" type="HealthBar"]
+texture_repeat = 2
+offset_right = 160.0
+offset_bottom = 10.0
+pivot_offset = Vector2(80, 5)
+size_flags_horizontal = 4
+size_flags_vertical = 8
+value = 100.0
+nine_patch_stretch = true
+texture_progress = ExtResource("1_uvj0l")

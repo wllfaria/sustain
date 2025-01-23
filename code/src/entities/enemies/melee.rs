@@ -1,28 +1,30 @@
 use godot::classes::{CharacterBody2D, ICharacterBody2D};
 use godot::prelude::*;
 
+use crate::entities::player::Player;
+
 #[derive(GodotClass)]
 #[class(base=CharacterBody2D)]
-struct MeleeEnemy {
+pub struct MeleeEnemy {
+    #[export]
     speed: f64,
+    #[export]
+    player: Option<Gd<Player>>,
     base: Base<CharacterBody2D>,
 }
 
 #[godot_api]
 impl ICharacterBody2D for MeleeEnemy {
     fn init(base: Base<Self::Base>) -> Self {
-        Self { speed: 200., base }
+        Self {
+            speed: 200.,
+            player: None,
+            base,
+        }
     }
 
     fn process(&mut self, delta: f64) {
-        let player = self
-            .base_mut()
-            .get_tree()
-            .expect("we must have a scene tree")
-            .get_current_scene()
-            .expect("must have a current scene")
-            .get_node_as::<CharacterBody2D>("Player");
-
+        let player = self.player.as_ref().expect("enemies must have a player to follow");
         let player_position = player.get_global_position();
         let enemy_position = self.base().get_global_position();
         let new_position = enemy_position.move_toward(player_position, self.speed as f32 * delta as f32);

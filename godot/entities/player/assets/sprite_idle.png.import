@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btp3vhfyx14qm"
-path="res://.godot/imported/sprite.png-59e79bb019e93dc56787ed3ed76beb52.ctex"
+uid="uid://b5qx70nfq4i2e"
+path="res://.godot/imported/sprite_idle.png-71d0247a6b773089ae0e5247cdaca859.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/enemies/melee/assets/sprite.png"
-dest_files=["res://.godot/imported/sprite.png-59e79bb019e93dc56787ed3ed76beb52.ctex"]
+source_file="res://entities/player/assets/sprite_idle.png"
+dest_files=["res://.godot/imported/sprite_idle.png-71d0247a6b773089ae0e5247cdaca859.ctex"]
 
 [params]
 
