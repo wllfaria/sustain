@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b5qx70nfq4i2e" path="res://entities/player/assets/sprite_idle.png" id="1_mab2k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c0rjq"]
-size = Vector2(32, 32)
+size = Vector2(16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2rv2u"]
 atlas = ExtResource("1_453mm")

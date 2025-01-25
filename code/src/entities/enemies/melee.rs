@@ -3,7 +3,7 @@ use godot::prelude::*;
 
 use crate::entities::player::Player;
 
-#[derive(GodotClass)]
+#[derive(Debug, GodotClass)]
 #[class(base=CharacterBody2D)]
 pub struct MeleeEnemy {
     #[export]

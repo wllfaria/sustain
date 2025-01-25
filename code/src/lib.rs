@@ -1,6 +1,7 @@
 mod components;
 mod entities;
 mod levels;
+mod spawner;
 
 use godot::prelude::*;
 
