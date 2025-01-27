@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=4 uid="uid://du7iag2vubvor"]
+[gd_scene load_steps=5 format=4 uid="uid://du7iag2vubvor"]
 
 [ext_resource type="PackedScene" uid="uid://cql7qy2j8rhll" path="res://Tilemap.tscn" id="1_lrwl1"]
 [ext_resource type="PackedScene" uid="uid://dly6kqaw26hid" path="res://entities/player/Player.tscn" id="2_lk2pl"]
+[ext_resource type="Resource" uid="uid://773ii2m4k4ei" path="res://levels/first/level_data.tres" id="4_lrwl1"]
 [ext_resource type="PackedScene" uid="uid://c56vb8layplfg" path="res://levels/ui/PlayingUi.tscn" id="5_lk2pl"]
 
 [node name="Testbed" type="Node2D"]
@@ -31,14 +32,20 @@ max = 100.0
 [node name="PlayingUi" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_lk2pl")]
 player = NodePath("../Player")
 
-[node name="Spawner" type="Spawner" parent="." node_paths=PackedStringArray("player", "wave_timer", "spawn_node")]
+[node name="Spawner" type="Spawner" parent="." node_paths=PackedStringArray("player", "wave_timer", "spawn_node", "spawn_strategy")]
 player = NodePath("../Player")
 wave_timer = NodePath("Timer")
 spawn_node = NodePath("../Enemies")
+spawn_strategy = NodePath("Strategies/FixedSpawnerStrategy")
 
 [node name="Timer" type="Timer" parent="Spawner"]
 wait_time = 3.243
 one_shot = true
 autostart = true
+
+[node name="Strategies" type="Node" parent="Spawner"]
+
+[node name="FixedSpawnerStrategy" type="FixedSpawnerStrategy" parent="Spawner/Strategies"]
+level_data = ExtResource("4_lrwl1")
 
 [node name="Enemies" type="Node" parent="."]

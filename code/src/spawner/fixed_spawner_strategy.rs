@@ -7,6 +7,8 @@ use crate::entities::player::Player;
 #[derive(Debug, GodotClass)]
 #[class(init, base=Node)]
 pub struct FixedSpawnerStrategy {
+    #[export]
+    level_data: Gd<Resource>,
     base: Base<Node>,
 }
 

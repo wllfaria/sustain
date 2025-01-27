@@ -1,5 +1,7 @@
 mod fixed_spawner_strategy;
 
+use std::ops::{Deref, DerefMut};
+
 use fixed_spawner_strategy::{ExponentialSpawnerStrategy, FixedSpawnerStrategy};
 use godot::classes::{DisplayServer, Timer};
 use godot::global::randf_range;
@@ -11,9 +13,26 @@ pub trait SpawnerStrategy {
     fn spawn_wave(&mut self, player: Gd<Player>, container: &mut Gd<Node>, bundle: WaveBundle);
 }
 
+struct SpawnerStrategyGodot {inner: Box<dyn SpawnerStrategy> };
+
+impl Deref for SpawnerStrategyGodot {
+    type Target = dyn SpawnerStrategy;
+
+    fn deref(&self) -> &Self::Target {
+        self.inner.as_ref()
+    }
+}
+
+impl DerefMut for SpawnerStrategyGodot {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        self.inner.as_mut()
+    }
+}
+
 #[derive(Debug)]
 pub struct WaveBundle {
     pub enemy_pool: Vec<Gd<PackedScene>>,
+    pub wave: u32,
 }
 
 #[derive(GodotClass)]
@@ -27,7 +46,11 @@ struct Spawner {
     #[export]
     spawn_node: Option<Gd<Node>>,
     #[export]
-    spawn_strategy: Option<Gd<Node>>,
+    spawn_strategy: Option<Gd<SpawnerStrategyGodot>>,
+    #[export]
+    current_wave: u32,
+    #[export]
+    max_wave: u32,
     enemy: Gd<PackedScene>,
 }
 
@@ -38,6 +61,8 @@ impl INode for Spawner {
             base,
             player: None,
             wave_timer: None,
+            current_wave: 1,
+            max_wave: 20,
             spawn_node: None,
             spawn_strategy: None,
             enemy: load::<PackedScene>("res://entities/enemies/melee/MeleeEnemy.tscn"),
@@ -68,6 +93,7 @@ impl Spawner {
 
         let bundle = WaveBundle {
             enemy_pool: vec![self.enemy.clone()],
+            wave: self.current_wave,
         };
 
         if let Ok(mut strategy) = strategy.clone().try_cast::<FixedSpawnerStrategy>() {
